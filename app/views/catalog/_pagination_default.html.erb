@@ -1,0 +1,24 @@
+<% if @pagination -%>
+<%# Repurposed from kaminari/app/views/kaminari -%>
+<div class="page_links item-pagination">
+  <span class="prev">
+    <%= link_to_if @pagination[:previous],
+                   t('views.pagination.previous').html_safe,
+                   @pagination[:previous],
+                   :rel => 'prev' %>
+  </span>
+  <span class="page current">
+    |
+    <strong><%= @pagination[:current][:position] %></strong>
+    of
+    <strong><%= @pagination[:count] %></strong>
+    |
+  </span>
+  <span class="next">
+    <%= link_to_if @pagination[:next],
+                   t('views.pagination.next').html_safe,
+                   @pagination[:next],
+                   :rel => 'next' %>
+  </span>
+</div>
+<% end %>
