@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "blacklight", ">= 5.7", "< 6.0"
   s.add_dependency "rails", "~> 4.1"
+  s.add_dependency "mousetrap-rails"
 
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "sqlite3"

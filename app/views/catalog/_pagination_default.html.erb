@@ -5,7 +5,8 @@
     <%= link_to_if @pagination[:previous],
                    t('views.pagination.previous').html_safe,
                    @pagination[:previous],
-                   :rel => 'prev' %>
+                   rel: 'prev',
+                   data: {keybinding: 'left'} %>
   </span>
   <span class="page current">
     |
@@ -18,7 +19,8 @@
     <%= link_to_if @pagination[:next],
                    t('views.pagination.next').html_safe,
                    @pagination[:next],
-                   :rel => 'next' %>
+                   rel: 'next',
+                   data: {keybinding: 'right'} %>
   </span>
 </div>
 <% end %>
