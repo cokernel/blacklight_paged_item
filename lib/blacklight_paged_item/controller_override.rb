@@ -9,7 +9,7 @@ module BlacklightPagedItem
     private
 
     def generate_pagination
-      _, @document = get_response_for_doc_id
+      _, @document = fetch
       return if @document.key? 'unpaged_display'
       return unless @document['id'] =~ /_/
       @pagination = {}
