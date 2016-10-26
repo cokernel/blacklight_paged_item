@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module BlacklightPagedItem
   module ControllerOverride
     extend ActiveSupport::Concern
@@ -5,23 +6,23 @@ module BlacklightPagedItem
       before_filter :generate_pagination, only: [:show]
     end
 
-  private
+    private
 
     def generate_pagination
-      response, @document = get_solr_response_for_doc_id
-      return if @document.has_key? 'unpaged_display'
+      _, @document = get_solr_response_for_doc_id
+      return if @document.key? 'unpaged_display'
       return unless @document['id'] =~ /_/
       @pagination = {}
-      parent_id = @document['parent_id_s']
-      base = @document['id'].sub(/^(.*)_\d+$/, "\\1")
-      page = @document['id'].sub(/^.*_(\d+)$/, "\\1").to_i
+      # parent_id = @document['parent_id_s']
+      base = @document['id'].sub(/^(.*)_\d+$/, '\\1')
+      page = @document['id'].sub(/^.*_(\d+)$/, '\\1').to_i
       count = @document[blacklight_config.show.page_count_field]
       if page > 1
         @pagination[:first] = "#{base}_1"
         @pagination[:previous] = "#{base}_#{page - 1}"
       end
       @pagination[:current] = {
-        url: "#{@document['id']}",
+        url: @document['id'].to_s,
         label: "#{page} of #{count}",
         position: page,
       }
