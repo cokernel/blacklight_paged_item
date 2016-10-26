@@ -9,14 +9,25 @@ module BlacklightPagedItem
     private
 
     def generate_pagination
-      _, @document = fetch
-      return if @document.key? 'unpaged_display'
-      return unless @document['id'] =~ /_/
+      _, document = fetch params[:id]
+      return if document.key? 'unpaged_display'
+      return unless document['id'] =~ /_/
       @pagination = {}
-      # parent_id = @document['parent_id_s']
-      base = @document['id'].sub(/^(.*)_\d+$/, '\\1')
-      page = @document['id'].sub(/^.*_(\d+)$/, '\\1').to_i
-      count = @document[blacklight_config.show.page_count_field]
+      base = document['parent_id_s']
+      page = document['id'].sub(/^.*_(\d+)$/, '\\1').to_i
+
+      q = "parent_id_s:#{base}"
+
+      pagination_params = {
+        qt: 'document',
+        q: q,
+        wt: 'ruby',
+      }
+
+      response, _ = search_results(params) do |search_builder|
+        pagination_params
+      end
+      count = response['response']['numFound'].to_i
       if page > 1
         @pagination[:first] = "#{base}_1"
         @pagination[:previous] = "#{base}_#{page - 1}"
