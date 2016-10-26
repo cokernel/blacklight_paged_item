@@ -33,7 +33,7 @@ module BlacklightPagedItem
         @pagination[:previous] = "#{base}_#{page - 1}"
       end
       @pagination[:current] = {
-        url: @document['id'].to_s,
+        url: document['id'].to_s,
         label: "#{page} of #{count}",
         position: page,
       }
