@@ -15,7 +15,7 @@ module BlacklightPagedItem
     end
 
     def document_heading(document)
-      pieces = [presenter(document).document_heading]
+      pieces = [presenter(document).heading]
       number_field = blacklight_config.show.page_number_field
       count_field = blacklight_config.show.page_count_field
       if document.key? number_field
